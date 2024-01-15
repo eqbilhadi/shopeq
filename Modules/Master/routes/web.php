@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Master\app\Http\Controllers\MasterController;
+use Modules\Master\app\Http\Controllers\CategoryController;
+use Modules\Master\app\Http\Controllers\ImageController;
+use Modules\Master\app\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,16 @@ use Modules\Master\app\Http\Controllers\MasterController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('master', MasterController::class)->names('master');
+Route::group(['middleware' => ['auth', 'checkAccess'], 'prefix' => 'master'], function () {
+    Route::resource('category', CategoryController::class)->names('master.category')->parameters([
+        'category' => 'mstcategory'
+    ])->only(['index', 'create', 'edit']);
+
+    Route::resource('product', ProductController::class)->names('master.product')->parameters([
+        'product' => 'mstproduct'
+    ])->only(['index', 'create', 'edit']);
+    
+    Route::resource('image', ImageController::class)->names('master.image')->parameters([
+        'image' => 'mstimage'
+    ])->only(['index', 'create', 'edit']);
 });
