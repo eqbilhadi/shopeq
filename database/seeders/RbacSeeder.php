@@ -95,6 +95,41 @@ class RbacSeeder extends Seeder
             'url' => 'rbac/user-management'
         ]);
 
+        $masterData = Menu::create([
+            'icon' => 'fa-solid fa-database',
+            'label_name' => 'Master Data',
+            'controller_name' => 'Modules\Master\app\Http\Controllers\MasterController',
+            'route_name' => 'master.index',
+            'url' => 'master'
+        ]);
+
+        $category = Menu::create([
+            'parent_id' => $masterData->id,
+            'icon' => 'fa-solid fa-layer-group',
+            'label_name' => 'Category',
+            'controller_name' => 'Modules\Master\app\Http\Controllers\CategoryController',
+            'route_name' => 'master.category.index',
+            'url' => 'master/category'
+        ]);
+
+        $product = Menu::create([
+            'parent_id' => $masterData->id,
+            'icon' => 'fa-solid fa-box-open',
+            'label_name' => 'Product',
+            'controller_name' => 'Modules\Master\app\Http\Controllers\ProductController',
+            'route_name' => 'master.product.index',
+            'url' => 'master/product'
+        ]);
+
+        $image = Menu::create([
+            'parent_id' => $masterData->id,
+            'icon' => 'fa-solid fa-images',
+            'label_name' => 'Product Images',
+            'controller_name' => 'Modules\Master\app\Http\Controllers\ImageController',
+            'route_name' => 'master.image.index',
+            'url' => 'master/image'
+        ]);
+
         $role_spd->menus()->sync([
             $accessSettingMenu->id,
             $menuManagement->id,
