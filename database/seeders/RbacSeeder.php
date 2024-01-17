@@ -96,8 +96,8 @@ class RbacSeeder extends Seeder
         ]);
 
         $masterData = Menu::create([
-            'icon' => 'fa-solid fa-database',
-            'label_name' => 'Master Data',
+            'icon' => 'fa-solid fa-gifts',
+            'label_name' => 'Master Data Products',
             'controller_name' => 'Modules\Master\app\Http\Controllers\MasterController',
             'route_name' => 'master.index',
             'url' => 'master'
