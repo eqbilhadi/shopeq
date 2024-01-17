@@ -6,6 +6,7 @@ use Exception;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Modules\Rbac\Services\MenuService;
+use App\Jobs\ForgetCacheMenu;
 
 class NavigationPropertyForm extends Form
 {
@@ -59,15 +60,16 @@ class NavigationPropertyForm extends Form
                     'timeout' => 1800
                 ])
                 ->addSuccess('Data saved successfully');
-            return to_route('rbac.nav.index');
         } catch (Exception $e) {
             flash()
                 ->options([
                     'timeout' => 1800
                 ])
                 ->addError('Data failed to save');
-            return to_route('rbac.nav.index');
         }
+
+        dispatch(new ForgetCacheMenu());
+        return to_route('rbac.nav.index');
     }
 
     public function update()
@@ -81,14 +83,15 @@ class NavigationPropertyForm extends Form
                     'timeout' => 1800
                 ])
                 ->addSuccess('Data updated successfully');
-            return to_route('rbac.nav.index');
         } catch (Exception $e) {
             flash()
                 ->options([
                     'timeout' => 1800
                 ])
                 ->addError('Data failed to update');
-            return to_route('rbac.nav.index');
         }
+
+        dispatch(new ForgetCacheMenu());
+        return to_route('rbac.nav.index');
     }
 }
