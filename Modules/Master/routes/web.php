@@ -19,7 +19,7 @@ use Modules\Master\app\Http\Controllers\ProductController;
 Route::group(['middleware' => ['auth', 'checkAccess'], 'prefix' => 'master'], function () {
     Route::resource('category', CategoryController::class)->names('master.category')->parameters([
         'category' => 'mstcategory'
-    ])->only(['index', 'create', 'edit']);
+    ])->only(['index']);
 
     Route::resource('product', ProductController::class)->names('master.product')->parameters([
         'product' => 'mstproduct'
