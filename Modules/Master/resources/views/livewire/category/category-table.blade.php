@@ -3,6 +3,9 @@
         <div class="card-header align-items-center d-flex">
             <h4 class="card-title mb-0 flex-grow-1">Table List Category</h4>
             <div class="flex-shrink-0">
+                @if (count($form->idBulkDelete) > 0)
+                    <small class="text-danger fs-11 me-1">{{ count($form->idBulkDelete) }} items selected</small><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#bulkDeleteModal">Delete</button>
+                @endif
                 <button type="button" class="btn btn-primary" wire:click='openModal("add", "test")' wire:loading.remove wire:target='openModal("add", "test")'>
                     Add Category
                 </button>
@@ -30,15 +33,25 @@
                 <table class="table align-middle table-striped table-hover mb-0">
                     <thead class="table-light">
                         <tr>
+                            <th scope="col" style="width:1%">No</th>
                             <th scope="col">Category Name</th>
-                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center" style="width: 20%">Status</th>
                             <th scope="col" style="width: 150px;" class="text-end">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($results as $r)
                             <tr wire:key='{{ $r->id }}'>
-                                <td>{{ $r->name }}</td>
+                                <td class="text-center">{{ $results->firstItem() + $loop->index }}</td>
+                                <td class="text-center">
+                                    <!-- Base Example -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="{{ $r->id }}" wire:model.live='form.idBulkDelete' value="{{ $r->id }}">
+                                        <label class="form-check-label" for="{{ $r->id }}">
+                                            {{ $r->name }}
+                                        </label>
+                                    </div>
+                                </td>
                                 <td class="text-center">
                                     <i class="@if ($r->is_active == 1) fa-solid fa-toggle-on text-success @else fa-solid fa-toggle-off text-danger @endif me-1 mt-2 fa-2xl" role="button" wire:click="changeActiveStatus('{{ $r->id }}', '{{ $r->is_active }}')"></i>
                                     <span class="badge @if ($r->is_active == 1) bg-success @else bg-danger @endif">
@@ -70,7 +83,7 @@
                             </tr>
                         @endforeach
                         @if ($results->isEmpty())
-                            <td colspan="3" class="text-center"><b>No data available in table</b></td>
+                            <td colspan="4" class="text-center"><b>No data available in table</b></td>
                         @endif
                     </tbody>
                 </table>
@@ -135,5 +148,6 @@
     </div>
 
     <x-delete-modal />
+    <x-bulk-delete-modal :count="count($form->idBulkDelete)"/>
 </div>
 <!-- Load More Buttons -->

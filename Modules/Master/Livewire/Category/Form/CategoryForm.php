@@ -20,6 +20,8 @@ class CategoryForm extends Form
 
     public $categoryId;
 
+    public array $idBulkDelete = [];
+
     protected $categoryService;
 
     public function boot(CategoryService $categoryService)
@@ -30,7 +32,7 @@ class CategoryForm extends Form
     public function setForm($id)
     {
         $data = $this->categoryService->getCategoryById($id);
-        
+
         $this->name = $data->name;
         $this->categoryId = $data->id;
     }
@@ -77,4 +79,22 @@ class CategoryForm extends Form
         }
     }
 
+    public function bulkDelete()
+    {
+        try {
+            $this->categoryService->deleteBatchCategory($this->idBulkDelete);
+            flash()
+                ->options([
+                    'timeout' => 1800
+                ])
+                ->addSuccess(count($this->idBulkDelete) . ' items data successfully deleted');
+            $this->idBulkDelete = [];
+        } catch (Exception $e) {
+            flash()
+                ->options([
+                    'timeout' => 1800
+                ])
+                ->addError('Data failed to deleted');
+        }
+    }
 }

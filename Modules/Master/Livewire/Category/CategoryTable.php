@@ -39,6 +39,12 @@ class CategoryTable extends Component
         $this->dispatch("open-modal");
     }
 
+    public function changeActiveStatus($id, $is_status)
+    {
+        $status = !$is_status;
+        $this->categoryService->changeActiveStatus($id, $status);
+    }
+
     public function save()
     {
         if ($this->form->actionForm == "add") {
@@ -59,6 +65,12 @@ class CategoryTable extends Component
             ])
             ->addSuccess('Data successfully deleted');
         $this->dispatch("close-modal");
+    }
+
+    public function bulkDelete()
+    {
+        $this->form->bulkDelete();
+        $this->dispatch('close-modal');
     }
 
     public function render()

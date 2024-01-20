@@ -33,6 +33,15 @@ class CategoryService
         return $this->categoryRepository->getCategory()->whereId($id)->first();
     }
 
+    public function changeActiveStatus($id, $status)
+    {
+        $params = [
+            'is_active' => $status
+        ];
+
+        $this->categoryRepository->update($params, $id);
+    }
+
     public function store($form)
     {
         $slug = $this->checkSlug(Str::slug($form['name']));
@@ -61,6 +70,11 @@ class CategoryService
     public function deleteCategory($id)
     {
         $this->categoryRepository->delete($id);
+    }
+    
+    public function deleteBatchCategory($id)
+    {
+        $this->categoryRepository->deleteBatch($id);
     }
 
     public function checkSlug($string)

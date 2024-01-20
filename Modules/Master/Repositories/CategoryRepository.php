@@ -31,4 +31,11 @@ class CategoryRepository extends BaseRepository
     {
         $this->model->whereId($id)->delete();
     }
+
+    public function deleteBatch($dataId)
+    {
+        foreach ($dataId as $key => $id) {
+            $this->model->whereId($id)->delete();
+        }
+    }
 }
