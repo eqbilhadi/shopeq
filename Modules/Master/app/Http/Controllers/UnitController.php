@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Modules\Master\app\Models\MstCategory;
 
-class CategoryController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('master::pages.category.index');
+        return view('master::pages.unit.index');
     }
 }

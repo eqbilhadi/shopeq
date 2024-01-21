@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Master\app\Http\Controllers\CategoryController;
 use Modules\Master\app\Http\Controllers\ImageController;
 use Modules\Master\app\Http\Controllers\ProductController;
+use Modules\Master\app\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,9 @@ use Modules\Master\app\Http\Controllers\ProductController;
 */
 
 Route::group(['middleware' => ['auth', 'checkAccess'], 'prefix' => 'master'], function () {
-    Route::resource('category', CategoryController::class)->names('master.category')->parameters([
-        'category' => 'mstcategory'
-    ])->only(['index']);
+    Route::resource('category', CategoryController::class)->names('master.category')->only(['index']);
+    
+    Route::resource('unit', UnitController::class)->names('master.unit')->only(['index']);
 
     Route::resource('product', ProductController::class)->names('master.product')->parameters([
         'product' => 'mstproduct'
