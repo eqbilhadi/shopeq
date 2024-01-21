@@ -24,4 +24,12 @@ return new class extends Migration
             $table->json('location')->nullable();
         });
     }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists(config('authentication-log.table_name'));
+    }
 };
