@@ -112,6 +112,15 @@ class RbacSeeder extends Seeder
             'url' => 'master/category'
         ]);
 
+        $unit = Menu::create([
+            'parent_id' => $masterData->id,
+            'icon' => 'fa-solid fa-weight-scale',
+            'label_name' => 'Unit',
+            'controller_name' => 'Modules\Master\app\Http\Controllers\UnitController',
+            'route_name' => 'master.unit.index',
+            'url' => 'master/unit'
+        ]);
+
         $product = Menu::create([
             'parent_id' => $masterData->id,
             'icon' => 'fa-solid fa-box-open',
@@ -134,7 +143,12 @@ class RbacSeeder extends Seeder
             $accessSettingMenu->id,
             $menuManagement->id,
             $roleManagement->id,
-            $userManagement->id
+            $userManagement->id,
+            $masterData->id,
+            $category->id,
+            $product->id,
+            $unit->id,
+            $image->id,
         ]);
     }
 }

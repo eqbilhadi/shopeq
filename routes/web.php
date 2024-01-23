@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-
+use Modules\Master\app\Models\MstProduct;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +18,9 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/test', function () {
+    dd(MstProduct::with('images')->with('units')->get());
 });
 
 Auth::routes();

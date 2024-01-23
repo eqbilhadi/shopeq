@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('master::create');
+        return view('master::pages.product.create');
     }
 
     /**

@@ -24,6 +24,12 @@ Breadcrumbs::for('master.product.index', function($trail) {
     $trail->push('Product List');
 });
 
+Breadcrumbs::for('master.product.create', function($trail) {
+    $trail->parent('master');
+    $trail->push('Product', route('master.product.create'));
+    $trail->push('Add Product');
+});
+
 Breadcrumbs::for('master.image.index', function($trail) {
     $trail->parent('master');
     $trail->push('Image', route('master.image.index'));
