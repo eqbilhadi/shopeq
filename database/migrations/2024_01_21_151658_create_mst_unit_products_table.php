@@ -18,7 +18,9 @@ return new class extends Migration
             $table->uuid('unit_id');
             $table->foreign('unit_id')->references('id')->on('mst_units')->cascadeOnDelete();
 
-            $table->double('convert');
+            $table->double('convert_main')->nullable();
+            $table->double('convert_other')->nullable();
+            $table->boolean('is_main_unit')->default(true);
 
             $table->timestamps();
         });

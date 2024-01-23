@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('mst_products', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->uuid('category_id');
-            $table->foreign('category_id')->references('id')->on('mst_category')->cascadeOnDelete();
+            $table->uuid('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('mst_category')->onDelete('set null');
 
             $table->string('name');
             $table->text('description')->nullable();
@@ -23,6 +23,8 @@ return new class extends Migration
             $table->double('selling_price')->nullable();
             $table->double('purchase_price')->nullable();
             $table->double('minimal_stok')->nullable();
+            $table->enum('status', ['published', 'draft'])->default('published');
+            $table->enum('visibility', ['public', 'hidden'])->default('public');
 
             $table->timestamps();
             $table->uuid('created_by');
