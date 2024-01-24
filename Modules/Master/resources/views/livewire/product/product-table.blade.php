@@ -9,16 +9,30 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                    <select class="form-select">
+                    <select class="form-select" wire:model.live='filter.category'>
                         <option value="">All Category</option>
                         @foreach ($categoryOptions as $opt)
                             <option value="{{ $opt->id }}">{{ $opt->name }}</option>
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <select class="form-select" wire:model.live='filter.status'>
+                        <option value="">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" wire:model.live='filter.visibility'>
+                        <option value="">All Visibility</option>
+                        <option value="public">Public</option>
+                        <option value="hidden">Private</option>
+                    </select>
+                </div>
 
-                <div class="col-md-3 offset-md-7">
-                    <input type="text" class="form-control" placeholder="Search...">
+                <div class="col-md-3 offset-md-3">
+                    <input type="text" class="form-control" placeholder="Search..." wire:model.live='filter.search'>
                 </div>
             </div>
         </div>
@@ -30,6 +44,7 @@
                             <th scope="col" style="width:1%">No</th>
                             <th scope="col">Product Name</th>
                             <th scope="col" style="width: 20%">Category</th>
+                            <th scope="col">Status</th>
                             <th scope="col" class="text-end">Purchase Price</th>
                             <th scope="col" class="text-end">Selling Price</th>
                             <th scope="col" style="width: 15%;" class="text-end">Action</th>
@@ -39,16 +54,20 @@
                         @foreach ($results as $r)
                             <tr wire:key='{{ $r->id }}'>
                                 <td class="text-center">{{ $results->firstItem() + $loop->index }}</td>
-                                <td class="text-center">
-                                    <!-- Base Example -->
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="{{ $r->id }}" wire:model.live='form.idBulkDelete' value="{{ $r->id }}">
-                                        <label class="form-check-label" for="{{ $r->id }}">
-                                            {{ $r->name }}
-                                        </label>
-                                    </div>
-                                </td>
+                                <td>{{ $r->name }}</td>
                                 <td>{{ $r->category->name ?? null }}</td>
+                                <td>
+                                    @if ($r->status == 'published')
+                                        <span class="badge badge-soft-primary badge-border">Published</span>
+                                    @else
+                                        <span class="badge badge-soft-danger badge-border">Draft</span>
+                                    @endif
+                                    @if ($r->visibility == 'public')
+                                        <span class="badge badge-soft-success badge-border">Public</span>
+                                    @else
+                                        <span class="badge badge-soft-secondary badge-border">Private</span>
+                                    @endif
+                                </td>
                                 <td class="text-end">{{ $r->purchase_price_format }}</td>
                                 <td class="text-end">{{ $r->selling_price_format }}</td>
                                 <td class="text-end">
@@ -62,7 +81,7 @@
                             </tr>
                         @endforeach
                         @if ($results->isEmpty())
-                            <td colspan="6" class="text-center"><b>No data available in table</b></td>
+                            <td colspan="7" class="text-center"><b>No data available in table</b></td>
                         @endif
                     </tbody>
                 </table>
@@ -75,10 +94,15 @@
         @else
             <div class="card-footer border-0 pb-0">
                 <ul class="pagination pagination-sm">
-                    {{ __('Showing') }} {{ ($results->currentpage() - 1) * $results->perpage() + 1 }} {{ __('to') }}
-                    {{ min($results->currentPage() * $results->perPage(), $results->total()) }}
-                    {{ __('of') }} {{ $results->total() }}
-                    {{ __('entries') }}
+                    @if ($results->isNotEmpty())
+                        {{ __('Showing') }} {{ ($results->currentpage() - 1) * $results->perpage() + 1 }} {{ __('to') }}
+                        {{ min($results->currentPage() * $results->perPage(), $results->total()) }}
+                        {{ __('of') }} {{ $results->total() }}
+                        {{ __('entries') }}
+                    @else
+                        {{ __('Showing') }} 0 {{ __('to') }} 0 {{ __('of') }} 0 {{ __('entries') }}
+                    @endif
+
                 </ul>
             </div>
         @endif

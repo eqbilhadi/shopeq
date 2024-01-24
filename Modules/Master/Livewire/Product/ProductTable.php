@@ -11,6 +11,13 @@ class ProductTable extends Component
     protected $categoryService;
     protected $productService;
 
+    public $filter = [
+        'search' => null,
+        'category' => null,
+        'status' => null,
+        'visibility' => null,
+    ];
+
     public function boot(
         CategoryService $categoryService,
         ProductService $productService
@@ -34,7 +41,7 @@ class ProductTable extends Component
     {
         return view('master::livewire.product.product-table', [
             "categoryOptions" => $this->categoryService->getCategory(),
-            "results" => $this->productService->getPageDataProduct()
+            "results" => $this->productService->getPageDataProduct($this->filter)
         ]);
     }
 }

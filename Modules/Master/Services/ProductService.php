@@ -24,6 +24,18 @@ class ProductService
         if (isset($filter['search']) && $filter['search'] != null) {
             $query->where('name', 'like', '%' . $filter['search'] . '%');
         }
+        
+        if (isset($filter['category']) && $filter['category'] != null) {
+            $query->where('category_id', $filter['category']);
+        }
+        
+        if (isset($filter['status']) && $filter['status'] != null) {
+            $query->where('status', $filter['status']);
+        }
+        
+        if (isset($filter['visibility']) && $filter['visibility'] != null) {
+            $query->where('visibility', $filter['visibility']);
+        }
 
         return $query->paginate(10)->setPath(route('master.product.index'));
     }
