@@ -52,7 +52,7 @@
                     </thead>
                     <tbody>
                         @foreach ($results as $r)
-                            <tr wire:key='{{ $r->id }}'>
+                            <tr wire:key='{{ $r->id }}' wire:loading.remove wire:target="filter">
                                 <td class="text-center">{{ $results->firstItem() + $loop->index }}</td>
                                 <td>{{ $r->name }}</td>
                                 <td>{{ $r->category->name ?? null }}</td>
@@ -80,8 +80,17 @@
                                 </td>
                             </tr>
                         @endforeach
+                        <tr class="d-none" wire:loading.class.remove="d-none" wire:target="filter" wire:key="938473294">
+                            <td colspan="7" class="text-center">
+                                <div class="spinner-border spinner-border-sm text-dark" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </td>
+                        </tr>
                         @if ($results->isEmpty())
-                            <td colspan="7" class="text-center"><b>No data available in table</b></td>
+                            <tr wire:loading.remove wire:target="filter" wire:key="23901238">
+                                <td colspan="7" class="text-center"><b>No data available in table</b></td>
+                            </tr>
                         @endif
                     </tbody>
                 </table>
