@@ -101,8 +101,8 @@ class ProductCreateForm extends Form
         $paramsUnit = $this->storeUnit();
         $form = array_merge($this->all(), ['paramsImages' => $paramsImages], ['paramsUnit' => $paramsUnit]);
 
-        $this->productService->store($form);
         try {
+            $this->productService->store($form);
             flash()
                 ->options([
                     'timeout' => 1800

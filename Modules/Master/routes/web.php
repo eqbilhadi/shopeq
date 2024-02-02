@@ -22,11 +22,7 @@ Route::group(['middleware' => ['auth', 'checkAccess'], 'prefix' => 'master'], fu
     
     Route::resource('unit', UnitController::class)->names('master.unit')->only(['index']);
 
-    Route::resource('product', ProductController::class)->names('master.product')->parameters([
-        'product' => 'mstproduct'
-    ])->only(['index', 'create', 'edit']);
+    Route::resource('product', ProductController::class)->names('master.product')->only(['index', 'create', 'edit']);
     
-    Route::resource('image', ImageController::class)->names('master.image')->parameters([
-        'image' => 'mstimage'
-    ])->only(['index', 'create', 'edit']);
+    Route::resource('image', ImageController::class)->names('master.image')->only(['index', 'create', 'edit']);
 });

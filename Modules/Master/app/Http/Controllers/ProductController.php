@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Master\app\Models\MstProduct;
 
 class ProductController extends Controller
 {
@@ -26,42 +27,11 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('master::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Mstproduct $product)
     {
-        return view('master::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        $product = MstProduct::with('images')->with('units')->find($product->id);
+        return view('master::pages.product.edit', compact('product'));
     }
 }

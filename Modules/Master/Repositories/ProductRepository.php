@@ -17,7 +17,7 @@ class ProductRepository extends BaseRepository
     {
         return $this->model;
     }
-    
+
     public function getProductById($id)
     {
         return $this->model->find($id);
@@ -34,6 +34,39 @@ class ProductRepository extends BaseRepository
 
             foreach ($paramsUnit as $value) {
                 $product->units()->create($value);
+            }
+        });
+    }
+
+    public function updateProduct($paramsProducts, $paramsImages, $paramsUnit, $paramsEditUnit, $form)
+    {
+        return DB::transaction(function () use ($paramsProducts, $paramsImages, $paramsUnit, $paramsEditUnit, $form) {
+            $product = $this->model->find($form['products']->id);
+
+            $product->update($paramsProducts);
+
+            if(!empty($paramsImages)){
+                foreach ($paramsImages as $value) {
+                    $product->images()->create($value);
+                }
+            }
+
+            if(!empty($paramsUnit)) {
+                foreach ($paramsUnit as $value) {
+                    $product->units()->create($value);
+                }
+            }
+
+            foreach ($paramsEditUnit as $key => $value) {
+                $subUnit = $product->units()->find($value['id']);
+
+                $subUnit->update($value);
+            }
+
+            if($form['mainUnitId'] != $form['compareMainUnitId']) {
+                $mainUnit = $product->units()->find($form['compareMainUnitId']);
+
+                $mainUnit->delete();
             }
         });
     }

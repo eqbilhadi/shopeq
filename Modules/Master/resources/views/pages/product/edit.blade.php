@@ -1,9 +1,9 @@
 <x-layouts-app.base title="Master Product">
     <div class="container-fluid">
-        {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        {{ Breadcrumbs::render(Route::currentRouteName(), $product) }}
         <div class="row">
             <div class="col-xl-12">
-                <livewire:master::product.product-create />
+                <livewire:master::product.product-edit :product="$product" />
             </div>
         </div>
     </div>

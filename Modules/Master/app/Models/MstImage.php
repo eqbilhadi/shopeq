@@ -34,9 +34,30 @@ class MstImage extends Model
         'is_main_image' => 'boolean'
     ];
 
-
+    
+    /**
+     * Method imageable
+     *
+     * @return MorphTo
+     */
     public function imageable(): MorphTo
     {
         return $this->morphTo();
+    }
+    
+    /**
+     * Method getImgUrlAttribute
+     *
+     * @return void
+     */
+    public function getImgUrlAttribute()
+    {
+        $imgPath = $this->attributes['filename']; 
+
+        if ($imgPath && file_exists(public_path($imgPath))) {
+            return asset($imgPath);
+        }
+
+        return asset('assets/images/placeholder-product-images.png');
     }
 }

@@ -15,7 +15,7 @@
                             <div class="col-12" wire:ignore>
                                 <label>Product Description</label>
                                 <div id="ckeditor-classic">
-
+                                    {!! $form->description !!}
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                     <input type="checkbox" class="form-check-input" id="isAutoBarcode" wire:model.live='form.isAutoBarcode'>
                                     <label class="form-check-label" for="isAutoBarcode">Auto Barcode</label>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Enter product barcode" @disabled($form->isAutoBarcode) wire:model.live.debouce.200ms='form.barcode'>
+                                <input type="text" class="form-control" placeholder="Enter product barcode" @disabled($form->isAutoBarcode) wire:model.live.debounce.200ms='form.barcode'>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Minimal Stok</label>
@@ -80,7 +80,7 @@
                                                         <img src="{{ $form->mainImages->temporaryUrl() }}" alt="" class="avatar-xl">
                                                     @endunless
                                                 @else
-                                                    <img src="" alt="" class="avatar-xl h-auto">
+                                                    <img src="{{ $form->previewMainImage }}" alt="" class="avatar-xl h-auto">
                                                 @endif
                                             </div>
                                         </div>
@@ -146,6 +146,29 @@
                                 </div>
                             </div>
                             <ul class="list-unstyled mb-0" id="dropzone-preview">
+                                @foreach ($form->previewStageImages as $key => $img)
+                                    <li class="mt-2" id="dropzone-preview-list">
+                                        <div class="border rounded">
+                                            <div class="d-flex p-2">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <div class="avatar-sm bg-light rounded">
+                                                        <img src="{{ $img['src'] }}" alt="" class="rounded avatar-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <div class="pt-1">
+                                                        <h5 class="fs-14 mb-1">{{ basename($img['filename']) }}</h5>
+                                                        <p class="fs-13 text-muted mb-0">{{ round(filesize($img['filename']) / 1024, 2) }} KB</p>
+                                                        <strong class="error text-danger"></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-shrink-0 ms-3">
+                                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteSubImage" data-delete-id={{ "$img[idImage]" }} data-delete-key={{ "$key" }}>Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
                                 @if ($form->stageImages)
                                     @foreach ($form->stageImages as $key => $img)
                                         <li class="mt-2" id="dropzone-preview-list">
@@ -246,6 +269,39 @@
                         @error('form.mainUnitId')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
+                        @foreach ($form->editUnitId as $key => $unit)
+                            <div class="mb-4 border-bottom pt-4"></div>
+                            <div class="d-flex gap-2 flex-column">
+                                <div class="w-100">
+                                    <select class="form-select w-100" wire:model.live='form.editUnitId.{{ $key }}'>
+                                        <option value="" selected disabled hidden>Select other unit product</option>
+                                        @foreach ($unitOptions as $unit)
+                                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error("form.editUnitId.{$key}")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <div class="w-50">
+                                        <input type="text" class="form-control" wire:model='form.editConvertMain.{{ $key }}' placeholder="Conversion of main unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })" >
+                                        @error("form.editConvertMain.{$key}")
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="w-50">
+                                        <input type="text" class="form-control" wire:model='form.editConvertOther.{{ $key }}' placeholder="Conversion to other unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })" >
+                                        @error("form.editConvertOther.{$key}")
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-danger w-100 h-100" wire:click='deleteSubUnit("{{ $key }}")'><i class="fa-duotone fa-trash"></i></button>
+                                </div>
+                            </div>
+                        @endforeach
                         @foreach ($inputSubUnit as $key => $subUnit)
                             <div class="mb-4 border-bottom pt-4"></div>
                             <div class="d-flex gap-2 flex-column">
@@ -262,13 +318,13 @@
                                 </div>
                                 <div class="d-flex gap-2">
                                     <div class="w-50">
-                                        <input type="text" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })" class="form-control" wire:model='form.convertMain.{{ $key }}' placeholder="Conversion of main unit">
+                                        <input type="text" class="form-control" wire:model='form.convertMain.{{ $key }}' placeholder="Conversion of main unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })">
                                         @error("form.convertMain.{$key}")
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="w-50">
-                                        <input type="text" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })" class="form-control" wire:model='form.convertOther.{{ $key }}' placeholder="Conversion to other unit">
+                                        <input type="text" class="form-control" wire:model='form.convertOther.{{ $key }}' placeholder="Conversion to other unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })">
                                         @error("form.convertOther.{$key}")
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -283,13 +339,44 @@
                     <div class="card-header">
                         <div class="d-flex gap-2 justify-content-end">
                             <a href="{{ route('master.product.index') }}" class="btn btn-danger">Cancel</a>
-                            <button class="btn btn-primary">Save</button>
+                            <button class="btn btn-primary">Save Changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </form>
+
+    <div wire:ignore.self class="modal fade" id="confirmDeleteSubImage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="mt-2 text-center">
+                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                            <h4>Are you sure ?</h4>
+                            <p class="text-muted mx-4 mb-0">Are you sure, you want to remove this image?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn w-sm btn-danger" id="delete-notification" wire:loading.remove>Yes, Delete It!</button>
+                        <button type="button" class="btn btn-danger btn-load" wire:loading>
+                            <span class="d-flex align-items-center">
+                                <span class="spinner-grow flex-shrink-0" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </span>
+                                <span class="flex-grow-1 ms-2">
+                                    Loading...
+                                </span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @push('scripts')
         <script>
             document.addEventListener('livewire:init', () => {
@@ -301,6 +388,16 @@
                 }).catch(function(e) {
                     console.error(e)
                 });
+            });
+
+            Livewire.on('close-modal', (event) => {
+                $("#confirmDeleteSubImage").modal('hide');
+            });
+
+            $("#confirmDeleteSubImage").on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('delete-id');
+                var key = $(e.relatedTarget).data('delete-key');
+                $(e.currentTarget).find('button#delete-notification').attr('wire:click', 'deleteSubImage("' + id + '", "' + key + '")');
             });
         </script>
     @endpush
