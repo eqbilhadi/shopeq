@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" id="{{ $selector ?? "deleteModal" }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -30,10 +30,10 @@
 @push('scripts')
     <script>
         Livewire.on('close-modal', (event) => {
-            $("#{{ $selector ?? 'deleteModal' }}").modal('hide');
+            $("#deleteModal").modal('hide');
         });
         
-        $("#{{ $selector ?? 'deleteModal' }}").on('show.bs.modal', function(e) {
+        $("#deleteModal").on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('delete-id');
             $(e.currentTarget).find('button#delete-notification').attr('wire:click', 'delete("' + id + '")');
         });

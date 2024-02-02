@@ -96,7 +96,7 @@ class ProductService
 
     public function getImagesProduct($id)
     {
-        $products = $this->productRepository->getProductById($id)->first();
+        $products = $this->productRepository->getProductById($id);
 
         return $products->images()->get() ?? array();
     }
