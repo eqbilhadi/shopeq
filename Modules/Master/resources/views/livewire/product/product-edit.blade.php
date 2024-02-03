@@ -157,9 +157,15 @@
                                                 </div>
                                                 <div class="flex-grow-1">
                                                     <div class="pt-1">
-                                                        <h5 class="fs-14 mb-1">{{ basename($img['filename']) }}</h5>
-                                                        <p class="fs-13 text-muted mb-0">{{ round(filesize($img['filename']) / 1024, 2) }} KB</p>
-                                                        <strong class="error text-danger"></strong>
+                                                        @if (file_exists(public_path($img['filename'])))
+                                                            <h5 class="fs-14 mb-1">{{ basename($img['filename']) }}</h5>
+                                                            <p class="fs-13 text-muted mb-0">{{ round(filesize($img['filename']) / 1024, 2) }} KB</p>
+                                                            <strong class="error text-danger"></strong>
+                                                        @else
+                                                            <h5 class="fs-14 mb-1">Not Found Image</h5>
+                                                            <p class="fs-13 text-muted mb-0">~ KB</p>
+                                                            <strong class="error text-danger"></strong>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="flex-shrink-0 ms-3">
@@ -285,13 +291,13 @@
                                 </div>
                                 <div class="d-flex gap-2">
                                     <div class="w-50">
-                                        <input type="text" class="form-control" wire:model='form.editConvertMain.{{ $key }}' placeholder="Conversion of main unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })" >
+                                        <input type="text" class="form-control" wire:model='form.editConvertMain.{{ $key }}' placeholder="Conversion of main unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })">
                                         @error("form.editConvertMain.{$key}")
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="w-50">
-                                        <input type="text" class="form-control" wire:model='form.editConvertOther.{{ $key }}' placeholder="Conversion to other unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })" >
+                                        <input type="text" class="form-control" wire:model='form.editConvertOther.{{ $key }}' placeholder="Conversion to other unit" x-data x-init="new Cleave($el, { numeral: true, numeralDecimalMark: '', delimiter: '' })">
                                         @error("form.editConvertOther.{$key}")
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
