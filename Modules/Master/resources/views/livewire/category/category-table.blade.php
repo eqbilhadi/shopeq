@@ -24,7 +24,10 @@
         <div class="card-header">
             <div class="row justify-content-end">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Search..." wire:model.live='filter.search'>
+                    <div class="search-box">
+                        <input type="text" class="form-control" placeholder="Search..." wire:model.live='filter.search'>
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,10 +99,15 @@
         @else
             <div class="card-footer border-0 pb-0">
                 <ul class="pagination pagination-sm">
-                    {{ __('Showing') }} {{ ($results->currentpage() - 1) * $results->perpage() + 1 }} {{ __('to') }}
-                    {{ min($results->currentPage() * $results->perPage(), $results->total()) }}
-                    {{ __('of') }} {{ $results->total() }}
-                    {{ __('entries') }}
+                    @if ($results->isNotEmpty())
+                        {{ __('Showing') }} {{ ($results->currentpage() - 1) * $results->perpage() + 1 }} {{ __('to') }}
+                        {{ min($results->currentPage() * $results->perPage(), $results->total()) }}
+                        {{ __('of') }} {{ $results->total() }}
+                        {{ __('entries') }}
+                    @else
+                        {{ __('Showing') }} 0 {{ __('to') }} 0 {{ __('of') }} 0 {{ __('entries') }}
+                    @endif
+
                 </ul>
             </div>
         @endif
@@ -148,6 +156,6 @@
     </div>
 
     <x-delete-modal />
-    <x-bulk-delete-modal :count="count($form->idBulkDelete)"/>
+    <x-bulk-delete-modal :count="count($form->idBulkDelete)" />
 </div>
 <!-- Load More Buttons -->

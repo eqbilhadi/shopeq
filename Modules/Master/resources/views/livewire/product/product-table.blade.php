@@ -32,7 +32,10 @@
                 </div>
 
                 <div class="col-md-3 offset-md-3">
-                    <input type="text" class="form-control" placeholder="Search..." wire:model.live='filter.search'>
+                    <div class="search-box">
+                        <input type="text" class="form-control" placeholder="Search..." wire:model.live='filter.search'>
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
                 </div>
             </div>
         </div>
