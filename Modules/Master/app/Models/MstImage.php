@@ -3,6 +3,7 @@
 namespace Modules\Master\app\Models;
 
 use App\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -59,5 +60,18 @@ class MstImage extends Model
         }
 
         return asset('assets/images/placeholder-product-images.png');
+    }
+        
+    /**
+     * Method scopeByType
+     *
+     * @param $query $query [explicite description]
+     * @param $type $type [explicite description]
+     *
+     * @return Builder
+     */
+    public function scopeByType($query, $type): Builder
+    {
+        return $query->where('imageable_type', $type);
     }
 }
