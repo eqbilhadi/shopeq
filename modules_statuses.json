@@ -1,4 +1,5 @@
 {
     "Rbac": true,
-    "Master": true
+    "Master": true,
+    "Transaction": true
 }
