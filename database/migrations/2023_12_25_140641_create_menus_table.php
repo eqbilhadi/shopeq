@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('route_name')->nullable();
             $table->string('url')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_dropdown')->default(true);
             $table->timestamps();
         });
     }
