@@ -54,7 +54,7 @@
                     <button data-bs-toggle="tooltip" title="Sort Down" class="btn btn-icon btn-sm" wire:click="changeOrder('{{ $menu->id }}','down')"><i class="fa-solid fa-chevron-down"></i></button>
                 @endunless
             </div>
-            <a href="{{ route('rbac.nav.edit', $menu->id) }}" class="btn btn-sm btn-warning">Edit</a>
+            <a href="{{ route('rbac.nav.edit', $menu->id) }}" class="btn btn-sm btn-warning" wire:navigate>Edit</a>
             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id={{ "$menu->id" }}>
                 Delete
             </button>

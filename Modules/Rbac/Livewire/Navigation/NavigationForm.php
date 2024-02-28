@@ -40,6 +40,7 @@ class NavigationForm extends Component
         } else {
             $this->form->update();
         }
+        return $this->redirect(route('rbac.nav.index'), navigate: true);
     }
 
     public function render()

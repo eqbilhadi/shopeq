@@ -6,7 +6,7 @@
             @if (count($idBulkDelete) > 0)
                 <small class="text-danger fs-11 me-1">{{ count($idBulkDelete) }} items selected</small><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#bulkDeleteModal">Delete</button>
             @endif
-            <a href="{{ route('rbac.nav.create') }}" class="btn btn-primary">Add Navigation</a>
+            <a href="{{ route('rbac.nav.create') }}" class="btn btn-primary" wire:navigate>Add Navigation</a>
         </div>
 
     </div>

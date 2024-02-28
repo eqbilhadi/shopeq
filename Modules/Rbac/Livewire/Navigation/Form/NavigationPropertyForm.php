@@ -69,7 +69,6 @@ class NavigationPropertyForm extends Form
         }
 
         dispatch(new ForgetCacheMenu());
-        return to_route('rbac.nav.index');
     }
 
     public function update()

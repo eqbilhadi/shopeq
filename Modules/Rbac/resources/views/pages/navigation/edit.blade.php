@@ -8,7 +8,7 @@
                         <h4 class="card-title mb-0 flex-grow-1">Edit Navigation</h4>
 
                         <div class="flex-shrink-0">
-                            <a href="{{ route('rbac.nav.index') }}" class="btn btn-danger">Back</a>
+                            <a href="{{ route('rbac.nav.index') }}" class="btn btn-danger" wire:navigate>Back</a>
                         </div>
 
                     </div>
