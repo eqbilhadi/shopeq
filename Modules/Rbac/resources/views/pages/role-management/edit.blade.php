@@ -1,4 +1,4 @@
-<x-layouts-app.base title="Navigation Management">
+<x-layouts-app.base title="Role Management">
     <div class="container-fluid">
         {{ Breadcrumbs::render(Route::currentRouteName(), $role) }}
         <div class="row">
