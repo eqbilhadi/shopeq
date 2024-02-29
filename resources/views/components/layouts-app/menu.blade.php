@@ -1,9 +1,18 @@
 @if ($menu->children->isEmpty())
-    <li class="nav-item" @if ($menu->parent) style="margin-left: 10px;" @endif>
-        <a class="nav-link menu-link @if (request()->is($menu->url . '*')) active @endif" href="{{ $menu->route_name && Route::has($menu->route_name) ? route($menu->route_name) : '/' }}">
-            <i class="{{ $menu->icon }} me-3"></i><span>{{ $menu->label_name }}</span>
-        </a>
-    </li>
+    @if ($menu->is_dropdown)
+        <li class="nav-item" @if ($menu->parent) style="margin-left: 10px;" @endif>
+            <a class="nav-link menu-link @if (request()->is($menu->url . '*')) active @endif" href="{{ $menu->route_name && Route::has($menu->route_name) ? route($menu->route_name) : '/' }}">
+                <i class="{{ $menu->icon }} me-3"></i><span>{{ $menu->label_name }}</span>
+            </a>
+        </li>
+    @else
+        <li class="menu-title">
+            <span>
+                <i class="{{ $menu->icon }} me-1"></i>
+                {{ $menu->label_name }}
+            </span>
+        </li>
+    @endif
 @else
     @if ($menu->is_dropdown)
         <li class="nav-item">
@@ -21,7 +30,7 @@
             </div>
         </li>
     @else
-        <li class="menu-title"> 
+        <li class="menu-title">
             <span>
                 <i class="{{ $menu->icon }} me-1"></i>
                 {{ $menu->label_name }}

@@ -70,6 +70,7 @@ class MenuService
             "url" => $form["url"] ?? null,
             "parent_id" => $form["parent_id"] ?? null,
             "is_active" => $form["is_active"] ?? null,
+            "is_dropdown" => $form["is_dropdown"] ?? null,
         ];
         if ($form['parent_id'] == null) {
             $sortNum = $this->menuRepository->getMenu()->whereNull('parent_id')->max('sort_num');

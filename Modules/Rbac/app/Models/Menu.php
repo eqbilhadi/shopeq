@@ -25,6 +25,7 @@ class Menu extends Model
         'route_name',
         'url',
         'is_active',
+        'is_dropdown'
     ];
 
     /**
@@ -33,7 +34,8 @@ class Menu extends Model
      * @var array
      */
     protected $casts = [
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'is_dropdown' => 'boolean'
     ];
 
 

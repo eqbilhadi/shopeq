@@ -27,6 +27,7 @@ class NavigationPropertyForm extends Form
 
     public $parent_id = null;
     public $is_active = false;
+    public $is_dropdown = true;
 
     public $id;
 
@@ -46,6 +47,7 @@ class NavigationPropertyForm extends Form
         $this->url = $menu->url;
         $this->parent_id = $menu->parent_id;
         $this->is_active = $menu->is_active;
+        $this->is_dropdown = $menu->is_dropdown;
         $this->id = $menu->id;
     }
 

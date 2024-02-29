@@ -66,6 +66,14 @@
                 </div>
             </div>
             <div class="row mt-4">
+                <label class="col-sm-2 offset-sm-1 col-form-label col-form-label">Is Dropdown Menu</label>
+                <div class="col-sm-8">
+                    <div class="form-check form-switch form-switch-md">
+                        <input type="checkbox" class="form-check-input" id="customSwitchsizemd" wire:model.live.debounce.300ms='form.is_dropdown'>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
                 <div class="col-lg-2 col-md-3 col-sm-4 ms-auto">
                     <button class="btn btn-primary w-100" wire:loading.remove wire:target='save'>Save</button>
                     <button type="button" class="btn btn-primary w-100 btn-load" wire:loading wire:target='save'>
