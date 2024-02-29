@@ -55,14 +55,12 @@ class RolePropertyForm extends Form
                     'timeout' => 1800
                 ])
                 ->addSuccess('Data saved successfully');
-            return redirect()->route('rbac.role.index');
         } catch (Exception $e) {
             flash()
                 ->options([
                     'timeout' => 1800
                 ])
                 ->addError('Data failed to save');
-            return redirect()->route('rbac.role.index');
         }
     }
 

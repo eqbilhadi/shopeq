@@ -49,6 +49,7 @@ class RoleForm extends Component
             $this->form->update();
         }
         dispatch(new ForgetCacheMenu());
+        return $this->redirect(route('rbac.role.index'), navigate: true);
     }
 
     public function render()

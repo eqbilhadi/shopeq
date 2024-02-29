@@ -8,7 +8,7 @@
                         <h4 class="card-title mb-0 flex-grow-1">Table List Role</h4>
 
                         <div class="flex-shrink-0">
-                            <a href="{{ route('rbac.role.create') }}" class="btn btn-primary">Add Role</a>
+                            <a href="{{ route('rbac.role.create') }}" class="btn btn-primary" wire:navigate>Add Role</a>
                         </div>
 
                     </div>

@@ -8,7 +8,7 @@
                         <h4 class="card-title mb-0 flex-grow-1">Manage Role</h4>
 
                         <div class="flex-shrink-0">
-                            <a href="{{ route('rbac.role.index') }}" class="btn btn-danger">Back</a>
+                            <a href="{{ route('rbac.role.index') }}" class="btn btn-danger" wire:navigate>Back</a>
                         </div>
 
                     </div>

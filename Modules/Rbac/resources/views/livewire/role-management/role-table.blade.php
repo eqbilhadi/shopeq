@@ -28,7 +28,7 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('rbac.role.edit', $result->id) }}" class="btn btn-sm btn-primary">Manage</a>
+                                <a href="{{ route('rbac.role.edit', $result->id) }}" class="btn btn-sm btn-primary" wire:navigate>Manage</a>
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id={{ "$result->id" }}>
                                     Delete
                                 </button>
