@@ -7,7 +7,7 @@ use Livewire\Form;
 use Livewire\Attributes\Validate;
 use Modules\Master\Services\UnitService;
 
-class CategoryForm extends Form
+class UnitForm extends Form
 {
     #[Validate('required|string')]
     public $name = null;
