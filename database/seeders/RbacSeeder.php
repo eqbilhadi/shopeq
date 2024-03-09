@@ -65,7 +65,8 @@ class RbacSeeder extends Seeder
             'label_name' => 'Access Settings',
             'controller_name' => 'Modules\Rbac\app\Http\Controllers\RbacController',
             'route_name' => 'rbac.index',
-            'url' => 'rbac'
+            'url' => 'rbac',
+            'is_dropdown' => false
         ]);
 
         $menuManagement = Menu::create([
@@ -100,7 +101,8 @@ class RbacSeeder extends Seeder
             'label_name' => 'Master Data Products',
             'controller_name' => 'Modules\Master\app\Http\Controllers\MasterController',
             'route_name' => 'master.index',
-            'url' => 'master'
+            'url' => 'master',
+            'is_dropdown' => false
         ]);
 
         $category = Menu::create([
@@ -139,6 +141,51 @@ class RbacSeeder extends Seeder
             'url' => 'master/image'
         ]);
 
+        $purchasing = Menu::create([
+            'icon' => 'fa-duotone fa-money-bill',
+            'label_name' => 'Purchasing',
+            'controller_name' => 'Modules\Purchasing\app\Http\Controllers\PurchasingController',
+            'route_name' => 'purchasing.index',
+            'url' => 'purchasing',
+            'is_dropdown' => false
+        ]);
+
+        $invoice = Menu::create([
+            'parent_id' => $purchasing->id,
+            'icon' => 'fa-solid fa-file-invoice',
+            'label_name' => 'Purchasing Invoice',
+            'controller_name' => 'Modules\Purchasing\app\Http\Controllers\InvoiceController',
+            'route_name' => 'purchasing.invoice.index',
+            'url' => 'purchasing/invoice'
+        ]);
+
+        $retur = Menu::create([ 
+            'parent_id' => $purchasing->id,
+            'icon' => 'fa-solid fa-sack-xmark',
+            'label_name' => 'Purchasing Retur',
+            'controller_name' => 'Modules\Purchasing\app\Http\Controllers\ReturController',
+            'route_name' => 'purchasing.retur.index',
+            'url' => 'purchasing/retur'
+        ]);
+
+        $settings = Menu::create([
+            'icon' => 'fa-sharp fa-solid fa-gears',
+            'label_name' => 'Settings',
+            'controller_name' => 'Modules\Settings\app\Http\Controllers\SettingsController',
+            'route_name' => 'settings.index',
+            'url' => 'settings',
+            'is_dropdown' => false
+        ]);
+
+        $theme = Menu::create([ 
+            'parent_id' => $settings->id,
+            'icon' => 'fa-duotone fa-brush',
+            'label_name' => 'Website Theme',
+            'controller_name' => 'Modules\Settings\app\Http\Controllers\ThemeController',
+            'route_name' => 'settings.theme.index',
+            'url' => 'settings/theme'
+        ]);
+
         $role_spd->menus()->sync([
             $accessSettingMenu->id,
             $menuManagement->id,
@@ -149,6 +196,11 @@ class RbacSeeder extends Seeder
             $product->id,
             $unit->id,
             $image->id,
+            $purchasing->id,
+            $invoice->id,
+            $retur->id,
+            $settings->id,
+            $theme->id
         ]);
     }
 }
