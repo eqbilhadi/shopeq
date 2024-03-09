@@ -21,6 +21,11 @@
     .navbar-menu .navbar-nav .nav-link {
         font-size: 16px;
     }
+
+    [data-layout=vertical][data-sidebar-size=sm] .navbar-menu .navbar-nav .nav-link i {
+        font-size: 18px;
+        margin-left: -6px;
+    }
 </style>
 @stack('styles')
 <!-- Font Awesome -->
