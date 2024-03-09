@@ -1,4 +1,4 @@
-<x-layouts-app.base title="Master Product">
+<x-layouts-app.base title="Retur Purchase">
     <div class="container-fluid">
         {{ Breadcrumbs::render(Route::currentRouteName()) }}
         <div class="row">
