@@ -1,7 +1,7 @@
 <div>
     <div class="card shadow">
         <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Table List Category</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Table List Supplier</h4>
             <div class="flex-shrink-0">
                 @if (count($idBulkDelete) > 0)
                     <small class="text-danger fs-11 me-1">{{ count($idBulkDelete) }} items selected</small><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#bulkDeleteModal">Delete</button>
