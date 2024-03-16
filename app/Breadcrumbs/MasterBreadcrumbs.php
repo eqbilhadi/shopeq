@@ -6,6 +6,12 @@ Breadcrumbs::for('master', function ($trail) {
     $trail->push('Master');
 });
 
+Breadcrumbs::for('master.supplier.index', function($trail) {
+    $trail->parent('master');
+    $trail->push('Supplier', route('master.supplier.index'));
+    $trail->push('Supplier List');
+});
+
 Breadcrumbs::for('master.category.index', function($trail) {
     $trail->parent('master');
     $trail->push('Category', route('master.category.index'));
