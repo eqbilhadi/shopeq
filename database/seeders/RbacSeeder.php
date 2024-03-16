@@ -98,11 +98,29 @@ class RbacSeeder extends Seeder
 
         $masterData = Menu::create([
             'icon' => 'fa-solid fa-gifts',
-            'label_name' => 'Master Data Products',
+            'label_name' => 'Master Data',
             'controller_name' => 'Modules\Master\app\Http\Controllers\MasterController',
             'route_name' => 'master.index',
             'url' => 'master',
             'is_dropdown' => false
+        ]);
+
+        $supplier = Menu::create([
+            'parent_id' => $masterData->id,
+            'icon' => 'fa-sharp fa-solid fa-boxes-packing',
+            'label_name' => 'Supplier',
+            'controller_name' => 'Modules\Master\app\Http\Controllers\SupplierController',
+            'route_name' => 'master.supplier.index',
+            'url' => 'master/supplier'
+        ]);
+
+        $customer = Menu::create([
+            'parent_id' => $masterData->id,
+            'icon' => 'fa-solid fa-person-carry-box',
+            'label_name' => 'Customer',
+            'controller_name' => 'Modules\Master\app\Http\Controllers\CustomerController',
+            'route_name' => 'master.customer.index',
+            'url' => 'master/customer'
         ]);
 
         $category = Menu::create([
@@ -192,6 +210,8 @@ class RbacSeeder extends Seeder
             $roleManagement->id,
             $userManagement->id,
             $masterData->id,
+            $supplier->id,
+            $customer->id,
             $category->id,
             $product->id,
             $unit->id,
