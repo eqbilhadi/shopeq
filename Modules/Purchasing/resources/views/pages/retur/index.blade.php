@@ -3,7 +3,7 @@
         {{ Breadcrumbs::render(Route::currentRouteName()) }}
         <div class="row">
             <div class="col-xl-12">
-                <h1>Retur</h1>
+                <livewire:purchasing::retur.retur-table />
             </div>
         </div>
     </div>

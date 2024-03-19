@@ -4,6 +4,7 @@ namespace Modules\Master\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class MstUnitProducts extends Model
@@ -39,5 +40,10 @@ class MstUnitProducts extends Model
     public function unitable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(MstUnit::class);
     }
 }

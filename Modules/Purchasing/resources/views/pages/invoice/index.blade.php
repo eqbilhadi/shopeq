@@ -3,7 +3,7 @@
         {{ Breadcrumbs::render(Route::currentRouteName()) }}
         <div class="row">
             <div class="col-xl-12">
-                <h1>Invoice</h1>
+                <livewire:purchasing::invoice.invoice-table />
             </div>
         </div>
     </div>

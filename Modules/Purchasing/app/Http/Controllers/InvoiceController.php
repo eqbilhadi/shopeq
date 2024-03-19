@@ -22,7 +22,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        return view('purchasing::create');
+        return view('purchasing::pages.invoice.create');
     }
 
     /**
