@@ -24,7 +24,7 @@ return new class extends Migration
             $table->uuid('customer_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('mst_customers')->onDelete('set null');
 
-            $table->float('paid');
+            $table->float('paid')->default(0);
             $table->float('change')->default(0);
             $table->text('description')->nullable();
             $table->boolean('is_draft')->default(true);

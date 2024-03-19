@@ -31,7 +31,7 @@ return new class extends Migration
             $table->float('price');
             $table->float('total_price');
             $table->date('expired')->nullable();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
             $table->uuid('created_by');
             $table->uuid('updated_by');
