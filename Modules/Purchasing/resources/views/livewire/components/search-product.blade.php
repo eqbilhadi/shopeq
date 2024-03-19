@@ -45,7 +45,7 @@
                 component,
                 cleanup
             }) => {
-                document.getElementById("productId{{ $key }}").focus();
+                $("#productId{{ $key }}").focus();
             })
         </script>
     @endscript

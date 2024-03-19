@@ -121,9 +121,6 @@ class InputInvoice extends Component
             $lastInsert = (new InvoiceRegistration($this->transaction, $this->form['item_orders'][$key]['transaction_items'], $params))->handle();
             $this->form['item_orders'][$key]['transaction_items'] = $lastInsert->itemOrder;
             $this->transaction = $lastInsert->transaction;
-
-            $lastIndex = count($this->options['unit_product']) - 1;
-            $this->dispatch('item-order-created', lastIndex: $lastIndex);
         } catch (Exception $exception) {
             $this->flashError($exception->getMessage());
         }
@@ -174,6 +171,8 @@ class InputInvoice extends Component
         $this->idProduct = $productId;
         $this->setItemOrder($key);
         $this->registerOptionsUnitProduct($key);
+
+        $this->dispatch('set-qty-focus', key: $key);
     }
 
     #[On('reset-product')]

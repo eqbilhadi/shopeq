@@ -5,7 +5,7 @@
             <div>
                 <a href="{{ route('purchasing.invoice.index') }}" class="btn btn-danger" wire:navigate>Back</a>
                 <button type="button" class="btn btn-primary" wire:click='finishInput'>
-                    <i class="fa-solid fa-spinner-third fa-spin" style="--fa-animation-duration: 0.7s;" wire:loading wire:target="cancelInput"></i>
+                    <i class="fa-solid fa-spinner-third fa-spin" style="--fa-animation-duration: 0.7s;" wire:loading wire:target="finishInput"></i>
                     Save Invoice
                 </button>
             </div>
