@@ -14,10 +14,17 @@
         }
     </style>
     <script>
-        document.addEventListener('livewire:initialized', () => {
+        document.addEventListener('livewire:init', () => {
             Livewire.on('reset-product', (event) => {
                 const elementInput = $("input#productId" + event.key)
                 elementInput.focus()
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('livewire:navigated', () => {
+            Livewire.on('select-product', (event) => {
+                document.getElementById("qty" + event.key).focus();
             });
         });
     </script>

@@ -136,11 +136,4 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            Livewire.on('select-product', (event) => {
-                document.getElementById("qty" + event.key).focus();
-            });
-        });
-    </script>
 </div>
