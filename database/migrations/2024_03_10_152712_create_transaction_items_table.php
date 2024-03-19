@@ -27,9 +27,9 @@ return new class extends Migration
             $table->foreign('unit_product_id')->references('id')->on('mst_unit_products')->onDelete('set null');
             
             $table->integer('qty');
-            $table->float('final_qty');
-            $table->float('price');
-            $table->float('total_price');
+            $table->double('final_qty');
+            $table->double('price');
+            $table->double('total_price');
             $table->date('expired')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
