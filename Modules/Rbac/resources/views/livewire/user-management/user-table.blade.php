@@ -93,7 +93,7 @@
                                 @endif
                             </td>
                             <td class="text-end">
-                                <a href="{{ route('rbac.user.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{{ route('rbac.user.edit', $user->id) }}" class="btn btn-sm btn-warning" wire:navigate>Edit</a>
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id={{ "$user->id" }}>
                                     Delete
                                 </button>

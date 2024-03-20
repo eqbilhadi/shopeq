@@ -34,6 +34,7 @@ class UserEdit extends Component
     public function save()
     {
         $this->form->update();
+        return $this->redirect(route('rbac.user.index'), navigate: true);
     }
 
     public function render()

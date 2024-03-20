@@ -54,14 +54,12 @@ class UserCreateForm extends Form
                     'timeout' => 1800
                 ])
                 ->addSuccess('Data saved successfully');
-            return redirect()->route('rbac.user.index');
         } catch (Exception $e) {
             flash()
                 ->options([
                     'timeout' => 1800
                 ])
                 ->addError('Data failed to save');
-            return redirect()->route('rbac.user.index');
         }
     }
 

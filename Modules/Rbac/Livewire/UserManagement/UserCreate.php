@@ -33,6 +33,8 @@ class UserCreate extends Component
     public function save()
     {
         $this->form->store();
+
+        return $this->redirect(route('rbac.user.index'), navigate: true);
     }
 
     public function render()

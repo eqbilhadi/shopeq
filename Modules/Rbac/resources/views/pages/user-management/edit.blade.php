@@ -5,10 +5,10 @@
             <div class="col-xl-12">
                 <div class="card shadow">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Edit User</h4>
+                        <h4 class="card-title mb-0 flex-grow-1" wire:navigate>Edit User</h4>
 
                         <div class="flex-shrink-0">
-                            <a href="{{ route('rbac.user.index') }}" class="btn btn-danger">Back</a>
+                            <a href="{{ route('rbac.user.index') }}" class="btn btn-danger" wire:navigate>Back</a>
                         </div>
 
                     </div>
