@@ -5,6 +5,7 @@ namespace Modules\Master\app\Models;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Master\database\factories\MstCategoryFactory;
 
 class MstCategory extends Model
 {
@@ -30,4 +31,9 @@ class MstCategory extends Model
 
     
     protected $table = "mst_category";
+
+    protected static function newFactory(): MstCategoryFactory
+    {
+        return MstCategoryFactory::new();
+    }
 }

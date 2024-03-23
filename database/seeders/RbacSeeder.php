@@ -222,5 +222,7 @@ class RbacSeeder extends Seeder
             $settings->id,
             $theme->id
         ]);
+
+        $this->command->info('Rbac seeded.');
     }
 }

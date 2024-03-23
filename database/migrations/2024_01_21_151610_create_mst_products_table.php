@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('barcode')->nullable();
+            $table->string('barcode')->unique()->nullable();
             $table->double('selling_price')->nullable();
             $table->double('purchase_price')->nullable();
             $table->double('minimal_stok')->nullable();

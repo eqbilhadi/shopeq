@@ -8,6 +8,7 @@ use App\Traits\UserStampsTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Master\database\factories\MstProductFactory;
 
 class MstProduct extends Model
 {
@@ -29,6 +30,11 @@ class MstProduct extends Model
         'status',
         'visibility'
     ];
+
+    protected static function newFactory(): MstProductFactory
+    {
+        return MstProductFactory::new();
+    }
 
     public function category(): BelongsTo
     {
