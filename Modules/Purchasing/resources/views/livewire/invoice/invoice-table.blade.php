@@ -34,6 +34,9 @@
             </div>
         </div>
         <div class="card-body">
+            <p class="alert alert-warning" wire:offline>
+                Whoops, your device has lost connection. The web page you are viewing is offline.
+            </p>
             <div class="table-responsive table-card">
                 <table class="table align-middle table-striped table-hover mb-0">
                     <thead class="table-light">
@@ -51,14 +54,13 @@
                             <tr wire:key='{{ $r->id }}'>
                                 <td class="text-center">{{ $results->firstItem() + $loop->index }}</td>
                                 <td>{{ $r->invoice_no }}</td>
-                                <td>{{ $r->transaction_date }}</td>
+                                <td>{{ $r->transaction_date->format('d F Y') }}</td>
                                 <td>{{ $r->supplier->name }}</td>
                                 <td class="text-end">Rp. {{ number_format($r->orderItems->sum('total_price'), 2, ',', '.') }}</td>
                                 <td class="text-end">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-sm btn-info">View</button>
+                                        <button type="button" class="btn btn-sm btn-info" wire:click="$dispatchTo('purchasing::components.view-invoice', 'init-open', { id: {{ "'$r->id'" }} })" data-bs-toggle="modal" data-bs-target="#view-invoice-modal">View</button>
                                         <a href="{{ route('purchasing.invoice.edit', $r->id) }}" class="btn btn-sm btn-warning" wire:navigate>Edit</a>
-                                        <button type="button" class="btn btn-sm btn-ghost-danger">Retur</button>
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id={{ "$r->id" }}>
                                             Delete
                                         </button>
@@ -93,4 +95,6 @@
             </div>
         @endif
     </div>
+    <livewire:purchasing::components.view-invoice />
+    <x-delete-modal />
 </div>
