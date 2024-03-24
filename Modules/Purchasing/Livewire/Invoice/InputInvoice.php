@@ -64,7 +64,7 @@ class InputInvoice extends Component
             }
             unset($this->form['item_orders'][0]);
             $this->form['transaction']['invoice_no'] = $this->transaction->invoice_no;
-            $this->form['transaction']['transaction_date'] = $this->transaction->transaction_date;
+            $this->form['transaction']['transaction_date'] = $this->transaction->transaction_date->format('Y-m-d');
             $this->form['transaction']['supplier_id'] = $this->transaction->supplier_id;
             $this->form['transaction']['description'] = $this->transaction->description;
 
