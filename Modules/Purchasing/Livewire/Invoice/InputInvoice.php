@@ -153,10 +153,15 @@ class InputInvoice extends Component
 
     public function finishInput()
     {
-        $this->transaction->update(['is_draft' => 0]);
+        if(is_null($this->transaction)) {
+            $this->flashError("Item orders still empty, you don't cannot save this transaction");
+        } else {
+            $this->transaction->update(['is_draft' => 0]);
+    
+            $this->flashSuccess("Invoice successfully saved");
+            return $this->redirect(route('purchasing.invoice.index'), navigate: true);
+        }
 
-        $this->flashSuccess("Invoice successfully saved");
-        return $this->redirect(route('purchasing.invoice.index'), navigate: true);
     }
 
     #[Computed]
