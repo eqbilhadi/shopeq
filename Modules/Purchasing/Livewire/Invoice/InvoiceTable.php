@@ -4,10 +4,13 @@ namespace Modules\Purchasing\Livewire\Invoice;
 
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Modules\Master\traits\WithFlashMessage;
 use Modules\Purchasing\app\Models\Transaction;
 
 class InvoiceTable extends Component
 {
+    use WithFlashMessage;
+
     public array $filter = [
         'startDate' => '',
         'endDate' => '',
@@ -25,7 +28,16 @@ class InvoiceTable extends Component
     {
         return Transaction::completed()
             ->filter($this->filter)
+            ->latest()
             ->paginate(15);
+    }
+
+    public function delete($id)
+    {
+        Transaction::destroy($id);
+
+        $this->flashSuccess('Successfully deleted');
+        $this->dispatch('close-modal');
     }
 
     public function render()
