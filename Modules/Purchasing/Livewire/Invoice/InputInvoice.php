@@ -21,6 +21,7 @@ class InputInvoice extends Component
 
     public ?Transaction $transaction = null;
     public string $idProduct;
+    public bool $isEdit = false;
 
     public array $form = [
         'transaction' => [
@@ -49,17 +50,23 @@ class InputInvoice extends Component
         "unit_product" => [[]],
     ];
 
-    public function mount()
+    public function mount($invoice = null)
     {
         $this->options['supplier'] = MstSupplier::all();
         $userId = auth()->user()->id;
 
-        if (Transaction::hasDraft($userId)) {
+        if (Transaction::hasDraft($userId) || !is_null($invoice)) {
+            if (!is_null($invoice)) {
+                $this->transaction = $invoice;
+                $this->isEdit = true;
+            } else {
+                $this->transaction = Transaction::draft()->where('created_by', $userId)->first();
+            }
             unset($this->form['item_orders'][0]);
-            $this->transaction = Transaction::draft()->where('created_by', $userId)->first();
             $this->form['transaction']['invoice_no'] = $this->transaction->invoice_no;
             $this->form['transaction']['transaction_date'] = $this->transaction->transaction_date;
             $this->form['transaction']['supplier_id'] = $this->transaction->supplier_id;
+            $this->form['transaction']['description'] = $this->transaction->description;
 
             foreach ($this->transaction->orderItems as $key => $value) {
                 $form = [
@@ -144,7 +151,7 @@ class InputInvoice extends Component
             $this->transaction = null;
             $this->form['transaction']['supplier_id'] = '';
             foreach ($this->form['item_orders'] as $key => $value) {
-                if(!is_null($value['transaction_items'])) {
+                if (!is_null($value['transaction_items'])) {
                     unset($this->form['item_orders'][$key]);
                 }
             }
@@ -153,15 +160,18 @@ class InputInvoice extends Component
 
     public function finishInput()
     {
-        if(is_null($this->transaction)) {
+        if (is_null($this->transaction)) {
             $this->flashError("Item orders still empty, you don't cannot save this transaction");
         } else {
-            $this->transaction->update(['is_draft' => 0]);
-    
+            $this->transaction->update([
+                'description' => $this->form['transaction']['description'],
+                'supplier_id' => $this->form['transaction']['supplier_id'],
+                'is_draft' => 0
+            ]);
+
             $this->flashSuccess("Invoice successfully saved");
             return $this->redirect(route('purchasing.invoice.index'), navigate: true);
         }
-
     }
 
     #[Computed]

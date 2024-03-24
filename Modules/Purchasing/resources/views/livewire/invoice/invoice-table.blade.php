@@ -56,17 +56,9 @@
                                 <td class="text-end">Rp. {{ number_format($r->orderItems->sum('total_price'), 2, ',', '.') }}</td>
                                 <td class="text-end">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-sm btn-warning" wire:click='openModal("update", "{{ $r->id }}")' wire:loading.remove wire:target='openModal("update", "{{ $r->id }}")'>Edit</button>
-                                        <button type="button" class="btn btn-sm btn-warning btn-load" wire:loading wire:target='openModal("update", "{{ $r->id }}")'>
-                                            <span class="d-flex align-items-center">
-                                                <span class="spinner-border flex-shrink-0" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
-                                                </span>
-                                                <span class="flex-grow-1 ms-2">
-                                                    Loading...
-                                                </span>
-                                            </span>
-                                        </button>
+                                        <button type="button" class="btn btn-sm btn-info">View</button>
+                                        <a href="{{ route('purchasing.invoice.edit', $r->id) }}" class="btn btn-sm btn-warning" wire:navigate>Edit</a>
+                                        <button type="button" class="btn btn-sm btn-ghost-danger">Retur</button>
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id={{ "$r->id" }}>
                                             Delete
                                         </button>

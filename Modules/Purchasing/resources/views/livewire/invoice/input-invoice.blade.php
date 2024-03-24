@@ -1,7 +1,7 @@
 <div>
     <div class="card shadow">
         <div class="card-header align-items-center d-flex justify-content-between">
-            <h4 class="card-title mb-0 flex-grow-1">Create Purchasing Invoice</h4>
+            <h4 class="card-title mb-0 flex-grow-1">@if($isEdit) Edit @else Create @endif Purchasing Invoice</h4>
             <div>
                 <a href="{{ route('purchasing.invoice.index') }}" class="btn btn-danger" wire:navigate>Back</a>
                 <button type="button" class="btn btn-primary" wire:click='finishInput'>
@@ -16,12 +16,14 @@
                     <h4 class="card-title mb-0 flex-grow-1">Current Invoice : {{ $transaction->invoice_no }}</h4>
                     <small class="text-bold">Total Price : Rp. {{ number_format($transaction->orderItems->sum('total_price'), 2, ',', '.') }}</small>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-outline-danger" wire:click='cancelInput'>
-                        <i class="fa-solid fa-spinner-third fa-spin" style="--fa-animation-duration: 0.7s;" wire:loading wire:target="cancelInput"></i>
-                        Cancel
-                    </button>
-                </div>
+                @if (!$isEdit)
+                    <div>
+                        <button type="button" class="btn btn-outline-danger" wire:click='cancelInput'>
+                            <i class="fa-solid fa-spinner-third fa-spin" style="--fa-animation-duration: 0.7s;" wire:loading wire:target="cancelInput"></i>
+                            Cancel
+                        </button>
+                    </div>
+                @endif
             </div>
         @endif
         <div class="card-body py-0">

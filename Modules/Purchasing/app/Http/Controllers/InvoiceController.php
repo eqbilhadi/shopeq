@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Purchasing\app\Models\Transaction;
 
 class InvoiceController extends Controller
 {
@@ -22,46 +23,23 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        return view('purchasing::pages.invoice.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('purchasing::show');
+        $isEdit = request()->route()->getActionMethod() == 'edit';
+        
+        return view('purchasing::pages.invoice.form', [
+            'isEdit' => $isEdit
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Transaction $invoice)
     {
-        return view('purchasing::edit');
-    }
+        $isEdit = request()->route()->getActionMethod() == 'edit';
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        return view('purchasing::pages.invoice.form', [
+            'isEdit' => $isEdit,
+            'invoice' => $invoice
+        ]);
     }
 }

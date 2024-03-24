@@ -1,9 +1,18 @@
 <x-layouts-app.base title="Invoice Purchase">
     <div class="container-fluid">
-        {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        @if ($isEdit)
+            {{ Breadcrumbs::render(Route::currentRouteName(), $invoice) }}
+        @else
+            {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        @endif
         <div class="row">
             <div class="col-xl-12">
-                <livewire:purchasing::invoice.input-invoice />
+                @if ($isEdit)
+                    <livewire:purchasing::invoice.input-invoice :$invoice />
+                @else
+                    <livewire:purchasing::invoice.input-invoice />
+                @endif
+
             </div>
         </div>
     </div>

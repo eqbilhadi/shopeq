@@ -14,7 +14,7 @@ class TransactionBuilder extends Builder
             $query->whereHas('supplier', fn ($query) => $query->whereName($searchText));
         });
 
-        $this->whereBetween('transaction_date', [$filters['startDate'], $filters['startDate']]);
+        $this->whereBetween('transaction_date', [$filters['startDate'], $filters['endDate']]);
 
         return $this;
     }
