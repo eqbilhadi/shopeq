@@ -6,6 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Master\Builder\MstSupplierBuilder;
+use Modules\Master\database\factories\MstSupplierFactory;
 
 class MstSupplier extends Model
 {
@@ -24,6 +25,11 @@ class MstSupplier extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected static function newFactory(): MstSupplierFactory
+    {
+        return MstSupplierFactory::new();
+    }
 
     public function newEloquentBuilder($query): MstSupplierBuilder
     {

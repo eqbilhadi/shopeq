@@ -5,6 +5,7 @@ namespace Modules\Master\app\Models;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Master\database\factories\MstUnitFactory;
 
 class MstUnit extends Model
 {
@@ -18,4 +19,9 @@ class MstUnit extends Model
     ];
 
     protected $table = "mst_units";
+
+    protected static function newFactory(): MstUnitFactory
+    {
+        return MstUnitFactory::new();
+    }
 }
