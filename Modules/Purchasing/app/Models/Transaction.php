@@ -37,6 +37,15 @@ class Transaction extends Model
         'created_by',
         'updated_by',
     ];
+
+    /**
+     * casts
+     *
+     * @var array
+     */
+    protected $casts = [
+        'transaction_date' => 'datetime'
+    ];
     
     public function newEloquentBuilder($query): TransactionBuilder
     {
