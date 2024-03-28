@@ -19,7 +19,7 @@ class InvoiceTable extends Component
 
     public function mount()
     {
-        $this->filter['startDate'] = date('Y-m-d');
+        $this->filter['startDate'] = now()->startOfMonth()->format('Y-m-d');
         $this->filter['endDate'] = date('Y-m-d');
     }
 
