@@ -1,3 +1,4 @@
+@stack('select2css')
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 @livewireStyles
