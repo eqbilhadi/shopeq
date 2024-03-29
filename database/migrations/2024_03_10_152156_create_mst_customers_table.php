@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('gender', ['l', 'p'])->nullable()->default('l');
             $table->string('phone', 15);
             $table->text('address');
+            $table->uuid('user_id')->nullable();
             $table->timestamps();
         });
     }
