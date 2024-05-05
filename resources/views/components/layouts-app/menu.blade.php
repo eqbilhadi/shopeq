@@ -8,7 +8,7 @@
     @else
         <li class="menu-title">
             <span>
-                <i class="{{ $menu->icon }} me-1"></i>
+                <i class="{{ $menu->icon }} fa-fw me-3"></i>
                 {{ $menu->label_name }}
             </span>
         </li>
@@ -17,7 +17,7 @@
     @if ($menu->is_dropdown)
         <li class="nav-item">
             <a class="nav-link menu-link @if (request()->is($menu->url . '*')) active @endif" href="#menu-{{ $menu->id }}" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="menu-{{ $menu->id }}">
-                <i class="{{ $menu->icon }} me-1"></i><span>{{ $menu->label_name }}</span>
+                <i class="{{ $menu->icon }} fa-fw me-3"></i><span>{{ $menu->label_name }}</span>
             </a>
             <div class="collapse menu-dropdown @if (request()->is($menu->url . '*')) show @endif" id="menu-{{ $menu->id }}">
                 <ul class="nav flex-column">
@@ -32,7 +32,7 @@
     @else
         <li class="menu-title">
             <span>
-                <i class="{{ $menu->icon }} me-1"></i>
+                <i class="{{ $menu->icon }} fa-fw me-3"></i>
                 {{ $menu->label_name }}
             </span>
         </li>
