@@ -112,14 +112,14 @@ class ProductService
     {
         $image = $this->deleteFileImageProduct($id);
 
-        $image->delete();
+        $image?->delete();
     }
 
     public function deleteFileImageProduct($id)
     {
         $image = $this->imageRepository->getImage()->find($id);
         
-        if ($image->filename != null) {
+        if ($image?->filename != null) {
             $deletePath = public_path($image->filename);
             if (file_exists($deletePath)) {
                 unlink($deletePath);
