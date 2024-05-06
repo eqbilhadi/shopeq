@@ -50,7 +50,7 @@ class ProductService
             'category_id' => $form['categoryId'],
             'name' => $form['name'],
             'description' => $form['description'],
-            'barcode' => ($form['isAutoBarcode']) ? null : $form['barcode'],
+            'barcode' => ($form['isAutoBarcode']) ? $this->generateBarcodeProduct(fake()->randomNumber(9, true)) : $form['barcode'],
             'selling_price' => preg_replace("/[^0-9]/", "", $form['sellingPrice']),
             'purchase_price' => preg_replace("/[^0-9]/", "", $form['purchasePrice']),
             'minimal_stok' => $form['minimalStok'],
@@ -67,7 +67,7 @@ class ProductService
             'category_id' => $form['categoryId'],
             'name' => $form['name'],
             'description' => $form['description'],
-            'barcode' => ($form['isAutoBarcode']) ? null : $form['barcode'],
+            'barcode' => ($form['isAutoBarcode']) ? $this->generateBarcodeProduct(fake()->randomNumber(9, true)) : $form['barcode'],
             'selling_price' => preg_replace("/[^0-9]/", "", $form['sellingPrice']),
             'purchase_price' => preg_replace("/[^0-9]/", "", $form['purchasePrice']),
             'minimal_stok' => $form['minimalStok'],
@@ -127,5 +127,17 @@ class ProductService
         }
 
         return $image;
+    }
+
+    private function generateBarcodeProduct($barcode)
+    {
+        if ($this->productRepository->getProduct()->whereBarcode($barcode)->exists()) {
+            $newBarcode = fake()->randomNumber(9, true);
+            $this->generateBarcodeProduct($newBarcode);
+        } else {
+            $newBarcode = $barcode;
+        }
+
+        return $newBarcode;
     }
 }

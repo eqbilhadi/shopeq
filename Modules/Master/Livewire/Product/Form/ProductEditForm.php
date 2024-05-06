@@ -95,6 +95,9 @@ class ProductEditForm extends Form
         $this->minimalStok = $product->minimal_stok;
         $this->description = $product->description;
         $this->barcode = $product->barcode;
+        if ($product->barcode != null) {
+            $this->isAutoBarcode = false;
+        }
 
         // Image Product
         $this->previewMainImage = $product->images()->whereIsMainImage(true)->first()->img_url ?? null;
