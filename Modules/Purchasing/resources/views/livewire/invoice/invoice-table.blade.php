@@ -21,9 +21,11 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <div class="d-flex gap-3 align-items-center">
-                    <input type="date" class="form-control" wire:model.live='filter.startDate'>
-                    <div>to</div>
-                    <input type="date" class="form-control" wire:model.live='filter.endDate'>
+                    <div class="input-group">
+                        <input type="date" class="form-control" wire:model.live='filter.startDate'>
+                        <span class="input-group-text">to</span>
+                        <input type="date" class="form-control" wire:model.live='filter.endDate'>
+                      </div>
                 </div>
                 <div class="d-flex">
                     <div class="search-box">
