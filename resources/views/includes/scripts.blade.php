@@ -9,6 +9,8 @@
 <script src="{{ asset('assets/libs/cleave.js/cleave.min.js') }}" data-navigate-once></script>
 {{-- JQuery --}}
 <script src="{{ asset('assets/libs/jquery/jquery-3.6.0.min.js') }}" data-navigate-once></script>
+<script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
+
 @livewireScripts
 
 @stack('scripts')

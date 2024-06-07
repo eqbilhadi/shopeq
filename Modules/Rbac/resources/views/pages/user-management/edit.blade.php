@@ -18,6 +18,11 @@
             </div>
         </div>
     </div>
+    <style>
+        .select2-container .select2-search--inline .select2-search__field {
+            margin: 5px;
+        }
+    </style>
     @push('scripts')
         <script>
             document.querySelector("#profile-img-file-input") && document.querySelector("#profile-img-file-input").addEventListener("change", function() {
@@ -29,12 +34,11 @@
                 }, !1), t && r.readAsDataURL(t)
             })
         </script>
-        <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 
         <script>
             $(document).ready(function() {
                 $('#roleUser').select2({
-                    placeholder: "Select User Role",
+                    placeholder: "Select User Role"
                 })
             })
         </script>
