@@ -175,7 +175,6 @@
         <script>
             $('#roleUser').on('change', function() {
                 let data = $("#roleUser").val()
-                console.log(data)
                 $wire.set('form.role', data)
             })
         </script>
