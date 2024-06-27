@@ -69,7 +69,7 @@ class Aside extends Component
                 'is_active' => '1',
             ])
             ->with([
-                'children' => function ($query) use ($user) {
+                'children.parent' => function ($query) use ($user) {
                     $query->whereHas('roles', fn ($query) => $query->whereIn('role_id', $user->roles->pluck('id')));
                 }
             ])
