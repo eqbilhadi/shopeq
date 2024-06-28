@@ -20,6 +20,8 @@ class ProductSeeder extends Seeder
                 'unitable_type' => MstProduct::class,
                 'unitable_id' => $product->id,
                 'unit_id' => MstUnit::inRandomOrder()->value('id'),
+                'selling_price' => fake()->numberBetween(50000, 500000),
+                'purchase_price' => fake()->numberBetween(50000, 500000),
             ];
             $product->units()->create($unitProduct);
         }
