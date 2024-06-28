@@ -20,9 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('barcode')->unique()->nullable();
-            $table->double('selling_price')->nullable();
-            $table->double('purchase_price')->nullable();
-            $table->double('minimal_stok')->nullable();
+            $table->integer('minimal_stok')->default(0);
             $table->enum('status', ['published', 'draft'])->default('published');
             $table->enum('visibility', ['public', 'hidden'])->default('public');
 

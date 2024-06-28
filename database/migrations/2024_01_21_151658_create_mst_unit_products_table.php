@@ -21,6 +21,9 @@ return new class extends Migration
             $table->double('convert_main')->nullable();
             $table->double('convert_other')->nullable();
             $table->boolean('is_main_unit')->default(true);
+            $table->double('selling_price')->nullable();
+            $table->double('purchase_price')->nullable();
+            $table->double('stok')->default(0);
 
             $table->timestamps();
         });
