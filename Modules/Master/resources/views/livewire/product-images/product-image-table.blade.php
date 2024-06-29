@@ -34,7 +34,7 @@
                                     @foreach ($images as $img)
                                         <div class="element-item col-xxl-3 col-xl-4 col-sm-6 project designing development" wire:key="{{ $img->id }}">
                                             <div class="gallery-box card">
-                                                <div class="gallery-container border border-dark border-1">
+                                                <div class="gallery-container border">
                                                     <a class="image-popup d-flex justify-content-center">
                                                         <div class="image-container d-flex justify-content-center">
                                                             <img src="{{ $img->img_url }}" alt="{{ basename($img->filename) }}">

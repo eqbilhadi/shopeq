@@ -23,8 +23,6 @@ class MstProductFactory extends Factory
             'name' => ucwords(fake()->words(2, true)),
             'description' => fake()->paragraphs(12, true),
             'barcode' => fake()->randomNumber(9, true),
-            'selling_price' => fake()->numberBetween(50000, 500000),
-            'purchase_price' => fake()->numberBetween(50000, 500000),
             'minimal_stok' => random_int(10, 50),
             'status' => fake()->randomElement(['published', 'draft']),
             'visibility' => fake()->randomElement(['public', 'hidden']),

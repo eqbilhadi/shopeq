@@ -8,6 +8,7 @@ use App\Traits\UserStampsTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Master\Builder\MstProductBuilder;
 use Modules\Master\database\factories\MstProductFactory;
 
 class MstProduct extends Model
@@ -51,13 +52,21 @@ class MstProduct extends Model
         return $this->morphMany(MstUnitProducts::class, 'unitable');
     }
 
-    public function getSellingPriceFormatAttribute()
+    public function getMainImageUrlAttribute()
     {
-        return 'Rp ' . number_format($this->attributes['selling_price'], 0, ',', '.');
+        $mainImage = $this->images->where('is_main_image', 1)->first();
+        
+        $imgPath = $mainImage?->filename; 
+
+        if ($imgPath && file_exists(public_path($imgPath))) {
+            return asset($imgPath);
+        }
+
+        return asset('assets/images/placeholder-product-images.png');
     }
 
-    public function getPurchasePriceFormatAttribute()
+    public function newEloquentBuilder($query): MstProductBuilder
     {
-        return 'Rp ' . number_format($this->attributes['purchase_price'], 0, ',', '.');
+        return new MstProductBuilder($query);
     }
 }

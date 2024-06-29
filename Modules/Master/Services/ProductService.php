@@ -23,7 +23,7 @@ class ProductService
 
     public function getPageDataProduct($filter = [])
     {
-        $query = $this->productRepository->getProduct()->with('category')->orderBy('created_at', 'desc');
+        $query = $this->productRepository->getProduct()->with(['category', 'units.unit'])->orderBy('created_at', 'desc');
 
         if (isset($filter['search']) && $filter['search'] != null) {
             $query->where('name', 'like', '%' . $filter['search'] . '%');
@@ -41,7 +41,7 @@ class ProductService
             $query->where('visibility', $filter['visibility']);
         }
 
-        return $query->paginate(10)->setPath(route('master.product.index'));
+        return $query->paginate(10);
     }
 
     public function store($form)
@@ -51,8 +51,6 @@ class ProductService
             'name' => $form['name'],
             'description' => $form['description'],
             'barcode' => ($form['isAutoBarcode']) ? $this->generateBarcodeProduct(fake()->randomNumber(9, true)) : $form['barcode'],
-            'selling_price' => preg_replace("/[^0-9]/", "", $form['sellingPrice']),
-            'purchase_price' => preg_replace("/[^0-9]/", "", $form['purchasePrice']),
             'minimal_stok' => $form['minimalStok'],
             'status' => $form['status'],
             'visibility' => $form['visibility']
@@ -68,8 +66,6 @@ class ProductService
             'name' => $form['name'],
             'description' => $form['description'],
             'barcode' => ($form['isAutoBarcode']) ? $this->generateBarcodeProduct(fake()->randomNumber(9, true)) : $form['barcode'],
-            'selling_price' => preg_replace("/[^0-9]/", "", $form['sellingPrice']),
-            'purchase_price' => preg_replace("/[^0-9]/", "", $form['purchasePrice']),
             'minimal_stok' => $form['minimalStok'],
             'status' => $form['status'],
             'visibility' => $form['visibility']

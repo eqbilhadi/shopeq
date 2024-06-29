@@ -20,10 +20,13 @@ class MstUnitProducts extends Model
         'unit_id',
         'convert_main',
         'convert_other',
+        'selling_price',
+        'purchase_price',
         'is_main_unit',
+        'stok'
     ];
-    
-     /**
+
+    /**
      * casts
      *
      * @var array
@@ -31,7 +34,7 @@ class MstUnitProducts extends Model
     protected $casts = [
         'is_main_unit' => 'boolean'
     ];
-    
+
     /**
      * Method unitable
      *
@@ -45,5 +48,15 @@ class MstUnitProducts extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(MstUnit::class);
+    }
+
+    public function getSellingPriceFormatAttribute()
+    {
+        return 'Rp ' . number_format($this->attributes['selling_price'], 0, ',', '.');
+    }
+
+    public function getPurchasePriceFormatAttribute()
+    {
+        return 'Rp ' . number_format($this->attributes['purchase_price'], 0, ',', '.');
     }
 }
