@@ -7,6 +7,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Modules\Master\app\Models\MstProduct;
+use Modules\Purchasing\app\Models\TransactionItem;
 
 class SearchProduct extends Component
 {
@@ -30,11 +31,17 @@ class SearchProduct extends Component
     public function products()
     {
         if (strlen($this->product) >= 2 && !$this->isSelected) {
+            $excludesId = TransactionItem::whereHas(
+                'transaction',
+                fn ($query) => $query->where('created_by', auth()->user()->id)
+                    ->where('is_draft', true)
+            )->pluck('product_id');
             return MstProduct::query()
                 ->where(function ($query) {
                     $query->where('name', 'like', "%{$this->product}%");
                     $query->orWhere('barcode', 'like', "%{$this->product}%");
                 })
+                ->whereNotIn('id', $excludesId)
                 ->paginate($this->limitPage);
         }
     }
