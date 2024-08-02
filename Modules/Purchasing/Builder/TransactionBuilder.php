@@ -61,6 +61,13 @@ class TransactionBuilder extends Builder
         return $this;
     }
 
+    public function getDraft($user_id)
+    {
+        $this->draft()->where('created_by', $user_id);
+
+        return $this->first();
+    }
+
     public function getLastInvoiceNumber($dateNow, $type)
     {
         $lastNumberInvoice = $this->whereType($type)
