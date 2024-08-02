@@ -3,7 +3,7 @@
         <div class="card-header align-items-center d-flex">
             <h4 class="card-title mb-0 flex-grow-1">Table List Purchasing Invoice</h4>
             <div class="flex-shrink-0">
-                <a href="{{ route('purchasing.invoice.create') }}" class="btn btn-primary" wire:navigate>
+                <a href="{{ route('purchasing.invoice.create') }}" class="btn btn-primary">
                     Add Invoice
                 </a>
                 <button type="button" class="btn btn-primary btn-load" wire:loading wire:target='openModal("add", "test")'>
