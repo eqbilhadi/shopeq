@@ -25,7 +25,7 @@ class InvoiceController extends Controller
     {
         $isEdit = request()->route()->getActionMethod() == 'edit';
         
-        return view('purchasing::pages.invoice.form', [
+        return view('purchasing::pages.invoice.create', [
             'isEdit' => $isEdit
         ]);
     }
